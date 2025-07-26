@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Responsive Banking UI</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      background: linear-gradient(to right, #c2e9fb, #a1c4fd);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .bank-card {
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .bank-card h1 {
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+    }
+
+    .balance-box {
+      background-color: #f1f3f6;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 25px;
+      box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.05);
+    }
+
+    .balance-box p {
+      font-size: 1rem;
+      color: #555;
+    }
+
+    .balance-box h2 {
+      margin-top: 10px;
+      font-size: 2rem;
+      color: #1a73e8;
+    }
+
+    .btn-group {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 12px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      color: white;
+    }
+
+    .deposit {
+      background-color: #4caf50;
+    }
+
+    .withdraw {
+      background-color: #f44336;
+    }
+
+    .btn:hover {
+      opacity: 0.9;
+    }
+
+    @media (max-width: 480px) {
+      .btn-group {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bank-card">
+    <h1>Bank Account</h1>
+    <div class="balance-box">
+      <p>Current Balance</p>
+      <h2>₹0.00</h2>
+    </div>
+    <div class="btn-group">
+      <button class="btn deposit">Deposit</button>
+      <button class="btn withdraw">Withdraw</button>
+    </div>
+  </div>
+</body>
+</html>
