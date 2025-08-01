@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="EXP3.css" />
+</head>
+<body>
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <h2>Admin Panel</h2>
+      <nav>
+        <ul>
+          <li>Dashboard</li>
+          <li>Users</li>
+          <li>Analytics</li>
+          <li>Settings</li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Main content -->
+    <div class="main">
+      <header class="header">
+        <div>
+          <h1>Welcome, Admin</h1>
+          <p>Status Overview</p>
+        </div>
+        <button id="themeSwitcher">Switch Theme 🌗</button>
+      </header>
+
+      <section class="cards">
+        <div class="card">Users<br><strong>1,024</strong></div>
+        <div class="card">Revenue<br><strong>$25,300</strong></div>
+        <div class="card">Visitors<br><strong>8,200</strong></div>
+        <div class="card">Tasks<br><strong>58</strong></div>
+      </section>
+
+      <section class="table-section">
+        <h2>Recent Activities</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>User</th>
+              <th>Action</th>
+              <th>Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Jatin Verma</td>
+              <td>Logged In</td>
+              <td>2 mins ago</td>
+            </tr>
+            <tr>
+              <td>Nitin Sharma</td>
+              <td>Uploaded File</td>
+              <td>5 mins ago</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    const themeSwitcher = document.getElementById('themeSwitcher');
+    themeSwitcher.onclick = () => {
+      document.body.classList.toggle('dark-mode');
+    };
+  </script>
+</body>
+</html>
