@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dynamic Product Filter</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    .filter-container {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    select {
+      padding: 8px;
+      font-size: 16px;
+    }
+    .product-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+    .product {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      text-align: center;
+      font-size: 50px;
+    }
+    .product h3 {
+      margin: 10px 0 5px;
+      font-size: 18px;
+    }
+    .product p {
+      color: #777;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Product List</h1>
+
+  <div class="filter-container">
+    <label for="category">Filter by category: </label>
+    <select id="category">
+      <option value="all">All</option>
+      <option value="shoes">Shoes</option>
+      <option value="shirts">Shirts</option>
+      <option value="gadgets">Gadgets</option>
+    </select>
+  </div>
+
+  <div class="product-list" id="productList">
+    <div class="product" data-category="shoes">
+      👟
+      <h3>Running Shoes</h3>
+      <p>Category: Shoes</p>
+    </div>
+    <div class="product" data-category="shoes">
+      🥾
+      <h3>Hiking Boots</h3>
+      <p>Category: Shoes</p>
+    </div>
+    <div class="product" data-category="shirts">
+      👕
+      <h3>Casual T-Shirt</h3>
+      <p>Category: Shirts</p>
+    </div>
+    <div class="product" data-category="shirts">
+      👔
+      <h3>Formal Shirt</h3>
+      <p>Category: Shirts</p>
+    </div>
+    <div class="product" data-category="gadgets">
+      ⌚
+      <h3>Smart Watch</h3>
+      <p>Category: Gadgets</p>
+    </div>
+    <div class="product" data-category="gadgets">
+      🎧
+      <h3>Wireless Earbuds</h3>
+      <p>Category: Gadgets</p>
+    </div>
+  </div>
+
+  <script>
+    const categorySelect = document.getElementById('category');
+    const products = document.querySelectorAll('.product');
+
+    categorySelect.addEventListener('change', function() {
+      const selectedCategory = this.value;
+      
+      products.forEach(product => {
+        const productCategory = product.getAttribute('data-category');
+
+        if (selectedCategory === 'all' || productCategory === selectedCategory) {
+          product.style.display = 'block';
+        } else {
+          product.style.display = 'none';
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
