@@ -1,0 +1,15 @@
+{
+  "name": "nodejs-exp-2",
+  "version": "1.0.0",
+  "description": "Exp 2 NodeJS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "keywords": [],
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
