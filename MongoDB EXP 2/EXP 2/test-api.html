@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management API Tester</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin-bottom: 10px;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .section h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-right: 10px;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+
+        .response-box {
+            margin-top: 20px;
+            padding: 15px;
+            background: #1e1e1e;
+            border-radius: 5px;
+            color: #d4d4d4;
+            font-family: 'Courier New', monospace;
+            max-height: 400px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .response-box.success {
+            border-left: 4px solid #4caf50;
+        }
+
+        .response-box.error {
+            border-left: 4px solid #f44336;
+        }
+
+        .students-list {
+            margin-top: 15px;
+        }
+
+        .student-card {
+            background: white;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .student-info {
+            flex: 1;
+        }
+
+        .student-info p {
+            margin: 5px 0;
+            color: #555;
+        }
+
+        .student-info strong {
+            color: #333;
+        }
+
+        .url-info {
+            background: #fff3cd;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            border-left: 4px solid #ffc107;
+        }
+
+        .url-info code {
+            background: #333;
+            color: #f8f8f2;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎓 Student Management System</h1>
+            <p>API Testing Interface</p>
+        </div>
+
+        <div class="content">
+            <!-- Create Student Section -->
+            <div class="section">
+                <h2>➕ Create New Student</h2>
+                <div class="url-info">
+                    <strong>POST:</strong> <code>http://localhost:3000/api/students</code>
+                </div>
+                <div class="form-group">
+                    <label for="createName">Name:</label>
+                    <input type="text" id="createName" placeholder="e.g., Alice Johnson">
+                </div>
+                <div class="form-group">
+                    <label for="createAge">Age:</label>
+                    <input type="number" id="createAge" placeholder="e.g., 20">
+                </div>
+                <div class="form-group">
+                    <label for="createCourse">Course:</label>
+                    <input type="text" id="createCourse" placeholder="e.g., Computer Science">
+                </div>
+                <button onclick="createStudent()">Create Student</button>
+                <div id="createResponse" class="response-box" style="display:none;"></div>
+            </div>
+
+            <!-- Get All Students Section -->
+            <div class="section">
+                <h2>📋 Get All Students</h2>
+                <div class="url-info">
+                    <strong>GET:</strong> <code>http://localhost:3000/api/students</code>
+                </div>
+                <button onclick="getAllStudents()">Fetch All Students</button>
+                <button class="btn-secondary" onclick="clearResponse('getAllResponse')">Clear</button>
+                <div id="getAllResponse" class="response-box" style="display:none;"></div>
+                <div id="studentsList" class="students-list"></div>
+            </div>
+
+            <!-- Get Student by ID Section -->
+            <div class="section">
+                <h2>🔍 Get Student by ID</h2>
+                <div class="url-info">
+                    <strong>GET:</strong> <code>http://localhost:3000/api/students/:id</code>
+                </div>
+                <div class="form-group">
+                    <label for="getStudentId">Student ID:</label>
+                    <input type="text" id="getStudentId" placeholder="e.g., 686f66da1801707c14d09e60">
+                </div>
+                <button onclick="getStudentById()">Get Student</button>
+                <div id="getByIdResponse" class="response-box" style="display:none;"></div>
+            </div>
+
+            <!-- Update Student Section -->
+            <div class="section">
+                <h2>✏️ Update Student</h2>
+                <div class="url-info">
+                    <strong>PUT:</strong> <code>http://localhost:3000/api/students/:id</code>
+                </div>
+                <div class="form-group">
+                    <label for="updateId">Student ID:</label>
+                    <input type="text" id="updateId" placeholder="e.g., 686f66da1801707c14d09e60">
+                </div>
+                <div class="form-group">
+                    <label for="updateName">Name:</label>
+                    <input type="text" id="updateName" placeholder="e.g., Alice Johnson">
+                </div>
+                <div class="form-group">
+                    <label for="updateAge">Age:</label>
+                    <input type="number" id="updateAge" placeholder="e.g., 21">
+                </div>
+                <div class="form-group">
+                    <label for="updateCourse">Course:</label>
+                    <input type="text" id="updateCourse" placeholder="e.g., Data Science">
+                </div>
+                <button onclick="updateStudent()">Update Student</button>
+                <div id="updateResponse" class="response-box" style="display:none;"></div>
+            </div>
+
+            <!-- Delete Student Section -->
+            <div class="section">
+                <h2>🗑️ Delete Student</h2>
+                <div class="url-info">
+                    <strong>DELETE:</strong> <code>http://localhost:3000/api/students/:id</code>
+                </div>
+                <div class="form-group">
+                    <label for="deleteId">Student ID:</label>
+                    <input type="text" id="deleteId" placeholder="e.g., 686f66da1801707c14d09e60">
+                </div>
+                <button class="btn-danger" onclick="deleteStudent()">Delete Student</button>
+                <div id="deleteResponse" class="response-box" style="display:none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:3000/api/students';
+
+        // Helper function to display response
+        function displayResponse(elementId, data, isError = false) {
+            const element = document.getElementById(elementId);
+            element.style.display = 'block';
+            element.className = `response-box ${isError ? 'error' : 'success'}`;
+            element.textContent = JSON.stringify(data, null, 2);
+        }
+
+        // Helper function to clear response
+        function clearResponse(elementId) {
+            const element = document.getElementById(elementId);
+            element.style.display = 'none';
+            element.textContent = '';
+            if (elementId === 'getAllResponse') {
+                document.getElementById('studentsList').innerHTML = '';
+            }
+        }
+
+        // Create Student
+        async function createStudent() {
+            const name = document.getElementById('createName').value;
+            const age = document.getElementById('createAge').value;
+            const course = document.getElementById('createCourse').value;
+
+            if (!name || !age || !course) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ name, age: parseInt(age), course })
+                });
+
+                const data = await response.json();
+                displayResponse('createResponse', data, !response.ok);
+
+                if (response.ok) {
+                    // Clear form
+                    document.getElementById('createName').value = '';
+                    document.getElementById('createAge').value = '';
+                    document.getElementById('createCourse').value = '';
+                }
+            } catch (error) {
+                displayResponse('createResponse', { error: error.message }, true);
+            }
+        }
+
+        // Get All Students
+        async function getAllStudents() {
+            try {
+                const response = await fetch(API_URL);
+                const data = await response.json();
+                displayResponse('getAllResponse', data, !response.ok);
+
+                // Display students in cards
+                if (response.ok && data.data) {
+                    const studentsList = document.getElementById('studentsList');
+                    studentsList.innerHTML = '';
+                    
+                    data.data.forEach(student => {
+                        const card = document.createElement('div');
+                        card.className = 'student-card';
+                        card.innerHTML = `
+                            <div class="student-info">
+                                <p><strong>ID:</strong> ${student._id}</p>
+                                <p><strong>Name:</strong> ${student.name}</p>
+                                <p><strong>Age:</strong> ${student.age}</p>
+                                <p><strong>Course:</strong> ${student.course}</p>
+                            </div>
+                        `;
+                        studentsList.appendChild(card);
+                    });
+                }
+            } catch (error) {
+                displayResponse('getAllResponse', { error: error.message }, true);
+            }
+        }
+
+        // Get Student by ID
+        async function getStudentById() {
+            const id = document.getElementById('getStudentId').value;
+
+            if (!id) {
+                alert('Please enter a student ID');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_URL}/${id}`);
+                const data = await response.json();
+                displayResponse('getByIdResponse', data, !response.ok);
+            } catch (error) {
+                displayResponse('getByIdResponse', { error: error.message }, true);
+            }
+        }
+
+        // Update Student
+        async function updateStudent() {
+            const id = document.getElementById('updateId').value;
+            const name = document.getElementById('updateName').value;
+            const age = document.getElementById('updateAge').value;
+            const course = document.getElementById('updateCourse').value;
+
+            if (!id || !name || !age || !course) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_URL}/${id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ name, age: parseInt(age), course })
+                });
+
+                const data = await response.json();
+                displayResponse('updateResponse', data, !response.ok);
+            } catch (error) {
+                displayResponse('updateResponse', { error: error.message }, true);
+            }
+        }
+
+        // Delete Student
+        async function deleteStudent() {
+            const id = document.getElementById('deleteId').value;
+
+            if (!id) {
+                alert('Please enter a student ID');
+                return;
+            }
+
+            if (!confirm('Are you sure you want to delete this student?')) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_URL}/${id}`, {
+                    method: 'DELETE'
+                });
+
+                const data = await response.json();
+                displayResponse('deleteResponse', data, !response.ok);
+
+                if (response.ok) {
+                    document.getElementById('deleteId').value = '';
+                }
+            } catch (error) {
+                displayResponse('deleteResponse', { error: error.message }, true);
+            }
+        }
+    </script>
+</body>
+</html>
